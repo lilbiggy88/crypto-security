@@ -14,31 +14,23 @@ module.exports = {
             delete sanitizedUser.password
             return res.status(200).send(sanitizedUser)
           }
-          break
-          //check password
-          //if matches, send, else, don't
-          //res.status(200).send(users[i])
+          break;
         }
 
       }
       res.status(400).send("User not found.")
     },
     register: (req, res) => {
-      const { password } = req.body
-      //const { username, email, firstName, lastName, password} = res.data
+      const { username, email, firstName, lastName, password} = res.data
       const hash = bcrypt.hashSync(password, 10)
-      // const user = { username,
-      //   email,
-      //   firstName,
-      //   lastName,
-      //   password: hash,
-      // }
-      const user = {
-        ...req.body, 
-        password: hash
+      const user = { 
+        username,
+        email,
+        firstName,
+        lastName,
+        password: hash,
       }
-      console.log('Registering User')
-        console.log(req.body)
+
         users.push(user)
         res.status(200).send(user)
     }
